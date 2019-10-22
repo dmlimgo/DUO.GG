@@ -1,7 +1,7 @@
 <template>
     <div id="nav">
-        <router-link to="/now">즉시매칭</router-link> |
-        <router-link to="/soon">예약매칭</router-link>
+        <router-link to="/matchnow">즉시매칭</router-link> |
+        <router-link to="/matchlater">예약매칭</router-link>
     </div>
 </template>
 

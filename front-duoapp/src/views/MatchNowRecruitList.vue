@@ -1,14 +1,27 @@
 <template>
     <div class="matchnow__list">
-        list
+        <MatchNowRecruit/>
+        <MatchNowRecruit/>
+        <MatchNowRecruit/>
+        <MatchNowRecruit/>
     </div>
 </template>
 
 <script>
+import MatchNowRecruit from './MatchNowRecruit.vue'
+
 export default {
-    name: 'matchnowrecruitlist'
+    name: 'matchnowrecruitlist',
+    components: {
+        MatchNowRecruit
+    }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.matchnow__list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
 </style>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './Recruit.scss';
 import Emblem_Iron from '../../assets/icons/ranked-emblems/Emblem_Iron.png';
 import Emblem_Bronze from '../../assets/icons/ranked-emblems/Emblem_Bronze.png';
@@ -15,6 +15,10 @@ import MidIcon from '../../assets/icons/ranked-positions/Position_Challenger-Mid
 import BotIcon from '../../assets/icons/ranked-positions/Position_Challenger-Bot.png';
 import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger-Support.png';
 import ChampionIndex from '../../assets/data/championIndex.json';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { SHOW_DETAIL } from '../../reducers/modal';
+import { showDetailAction } from '../../reducers/modal';
 
 const Recruit = props => {
     const each = props.each;
@@ -71,11 +75,14 @@ const Recruit = props => {
         // return String(new Date(calculatedTime).toLocaleDateString())
         // return min_gap
     };
+    // console.log('each', each);
+    const dispatch = useDispatch();
     const modalShow = () => {
         document.querySelector('.detail__wrap').classList.remove("modal--hide");
         document.querySelector('.detail__wrap').classList.add("modal--show");
+        dispatch(showDetailAction(each));
     };
-    // console.log('each', each);
+
     return (
         <div className="recruit__each">
             <div className="column1">

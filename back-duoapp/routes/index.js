@@ -89,9 +89,14 @@ router.post('/test', async (req, res) => {
         }
 
         // 유저 업데이트 하는 코드
-        let inNickName = Boolean
+        let inNickName = false
         await User.find({_id:id}, function(err, data) {
-            inNickName = data[0]['nicknames'].includes(search)
+            if (data[0]['nicknames'] === undefined || data[0]['nicknames'].length == 0) {
+                inNickName = false
+            }
+            else {
+                inNickName = data[0]['nicknames'].includes(search)
+            }
         })
         console.log(inNickName)
         if (inNickName === false) {

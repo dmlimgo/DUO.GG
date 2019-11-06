@@ -15,8 +15,7 @@ const recruitmentSchema = new Schema({
         required: true
     },
     applicantsCount: {
-        type: Number,
-        required: true
+        type: Number
     }
 }, {
    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

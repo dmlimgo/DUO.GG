@@ -11,7 +11,10 @@ import Emblem_Grandmaster from '../../assets/icons/ranked-emblems/Emblem_Grandma
 import Emblem_Challenger from '../../assets/icons/ranked-emblems/Emblem_Challenger.png';
 import { getEmblem } from './Recruit';
 
-const RecruitDetail = () => {
+const RecruitDetail = props => {
+    console.log('modal detail', props);
+    const data = props.data.clickedRecruit;
+    console.log('modaldata', data);
     const modalHide = () => {
         document.querySelector('.detail__wrap').classList.remove('modal--show');
         document.querySelector('.detail__wrap').classList.add('modal--hide');
@@ -20,43 +23,43 @@ const RecruitDetail = () => {
         // recruit_id필요
         const request_body = {
             query: `
-            query {
-                recruitmentAndApplicants(recruitId:"5dba82c9ffd1e12700a78837") {
-                    _id,
-                    position,
-                    status,
-                    created_at,
-                    updated_at,
-                    writer {
-                        username,
-                        tiers {
-                            tier,
-                            rank,
-                            leaguePoint
-                        }
-                    },
-                    applicants {
-                        username,
-                        tiers {
-                            tier,
-                            rank,
-                            leaguePoint
-                        }
-                        recentgames {
-                            win,
-                            kills,
-                            deaths,
-                            assists,
-                            champion
+                query {
+                    recruitmentAndApplicants(recruitId:"5dba82c9ffd1e12700a78837") {
+                        _id,
+                        position,
+                        status,
+                        created_at,
+                        updated_at,
+                        writer {
+                            username,
+                            tiers {
+                                tier,
+                                rank,
+                                leaguePoint
+                            }
+                        },
+                        applicants {
+                            username,
+                            tiers {
+                                tier,
+                                rank,
+                                leaguePoint
+                            }
+                            recentgames {
+                                win,
+                                kills,
+                                deaths,
+                                assists,
+                                champion
+                            }
                         }
                     }
                 }
-            }
             `
         }
     };
     return (
-        <div className="detail__wrap modal--show">
+        <div className="detail__wrap modal--hide">
             <div onClick={modalHide} className="modal__bg" />
             <div className="modal__box">
                 <div className="row1">
@@ -65,13 +68,13 @@ const RecruitDetail = () => {
                     </div>
                     <div className="row1__column2">
                         <div className="nickname">
-                            <span>NICKNAME</span>
+                            <span>{props.data.isShow ? data.writer.representationNickname : 'username'}</span>
                         </div>
                         <div className="tier">
-                            <span>TIER</span>
+                            <span>{props.data.isShow ? data.writer.tiers.tier : 'tier'} {props.data.isShow? data.writer.tiers.rank : 'rank'}</span>
                         </div>
                         <div className="point">
-                            <span>pooint</span>
+                            <span>{props.data.isShow ? data.writer.tiers.leaguePoint : 'leaguePoint'}</span>
                         </div>
                     </div>
                 </div>

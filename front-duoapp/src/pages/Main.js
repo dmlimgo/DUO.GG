@@ -5,6 +5,8 @@ import RecruitDetail from '../components/recruit/RecruitDetail';
 import './Main.scss';
 import Push from 'push.js'
 
+import { useDispatch, useSelector } from 'react-redux';
+
 const Main = () => {
     const [user, setUser] = useState({});
     useEffect(() => {
@@ -82,9 +84,10 @@ const Main = () => {
             }
         });
         await res.json().then(data => {
-            console.log('data', data)
-
-            setRecruit(data.data.getRecruitmentByUserID);
+            // console.log(data)
+            if (!data.errors) {
+                setRecruit(data.data.getRecruitmentByUserID);
+            }
         });
     };
     console.log(recruit)
@@ -101,6 +104,7 @@ const Main = () => {
         }
     }
 
+    const modalDetail = useSelector( state => state.modal );
     return (
         // <div className="home">
         //     <div className="content">
@@ -111,7 +115,7 @@ const Main = () => {
         <div className="home">
             <RecruitRegister/>
             <RecruitList/>
-            <RecruitDetail/>
+            <RecruitDetail data={modalDetail}/>
         </div>
     );
 };

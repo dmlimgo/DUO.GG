@@ -6,7 +6,6 @@ import './Main.scss';
 import Push from 'push.js'
 
 const Main = () => {
- 
     const [user, setUser] = useState({});
     useEffect(() => {
         // profile에서 유저 정보 가져오기
@@ -83,7 +82,7 @@ const Main = () => {
             }
         });
         await res.json().then(data => {
-            // console.log(data)
+            console.log('data', data)
 
             setRecruit(data.data.getRecruitmentByUserID);
         });

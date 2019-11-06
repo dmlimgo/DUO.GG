@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './RecruitDetail.scss';
 import Emblem_Iron from '../../assets/icons/ranked-emblems/Emblem_Iron.png';
 import Emblem_Bronze from '../../assets/icons/ranked-emblems/Emblem_Bronze.png';
@@ -19,9 +19,9 @@ const RecruitDetail = props => {
         document.querySelector('.detail__wrap').classList.remove('modal--show');
         document.querySelector('.detail__wrap').classList.add('modal--hide');
     };
-    const getApplicants = () => {
+    const getApplicants = async() => {
         // recruit_id필요
-        const request_body = {
+        const requestBody = {
             query: `
                 query {
                     recruitmentAndApplicants(recruitId:"5dba82c9ffd1e12700a78837") {
@@ -57,7 +57,35 @@ const RecruitDetail = props => {
                 }
             `
         }
+        const res = await fetch('http://localhost:4000/graphql', {
+            method: 'POST',
+            body: JSON.stringify(requestBody),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        await res.json().then(data => {
+            console.log('getapplicant', data);
+        });
     };
+    const applyMatch = userId => {
+        const request_body = {
+            query: `
+                mutation {
+                    createApplicant(createApplicantInput: {username: "${userId}"}, position: "mid", status: "true") {
+                        userId,
+                        recruitmentId,
+                        position,
+                        created_at,
+                        updated_at
+                    }
+                }
+            `
+        }
+    }
+    useEffect(() => {
+        getApplicants()
+    },[]);
     return (
         <div className="detail__wrap modal--hide">
             <div onClick={modalHide} className="modal__bg" />
@@ -79,7 +107,7 @@ const RecruitDetail = props => {
                     </div>
                 </div>
                 <div className="row3">
-                    <button className="button">
+                    <button onClick={() => applyMatch("5dbe6feda249da22a033ae7c")} className="button">
                         신청하기
                     </button>
                 </div>

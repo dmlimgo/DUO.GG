@@ -1,5 +1,6 @@
 .detail__wrap {
     display: flex;
+    flex-direction: column;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -26,7 +27,7 @@
         // left: 50%;
         // transform: translate(-50%, -50%);
         width: 500px;
-        height: 350px;
+        // height: 350px;
         border-radius: 3px;
         border: 1px solid #ffcc77;
         background-color: #111111;
@@ -64,6 +65,14 @@
         .row3 {
             button {
                 padding: 5px 10px;
+            }
+        }
+        .comments {
+            .comment__box {
+                display: flex;
+                > div {
+                    display: flex;
+                }
             }
         }
     }

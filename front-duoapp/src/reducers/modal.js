@@ -16,7 +16,7 @@ export const showDetailAction = (data) => {
 const reducer = (state=initialState, action) => {
     switch (action.type) {
         case SHOW_DETAIL: {
-            console.log('showDetailAction', state, action)
+            // console.log('showDetailAction', state, action)
             return {
                 ...state,
                 clickedRecruit: action.data,
@@ -24,7 +24,7 @@ const reducer = (state=initialState, action) => {
             }
         }
         default: {
-            console.log('showDetailAction default', state, action)
+            // console.log('showDetailAction default', state, action)
             return {
                 ...state,
             }

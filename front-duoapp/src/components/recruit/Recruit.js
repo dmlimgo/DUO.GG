@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './Recruit.scss';
 import Emblem_Iron from '../../assets/icons/ranked-emblems/Emblem_Iron.png';
 import Emblem_Bronze from '../../assets/icons/ranked-emblems/Emblem_Bronze.png';
@@ -16,8 +16,8 @@ import BotIcon from '../../assets/icons/ranked-positions/Position_Challenger-Bot
 import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger-Support.png';
 import ChampionIndex from '../../assets/data/championIndex.json';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { SHOW_DETAIL } from '../../reducers/modal';
+import { useDispatch } from 'react-redux';
+// import { SHOW_DETAIL } from '../../reducers/modal';
 import { showDetailAction } from '../../reducers/modal';
 
 const Recruit = props => {
@@ -42,6 +42,8 @@ const Recruit = props => {
                 return <img alt="Emblem_Grandmaster" src={Emblem_Grandmaster} />;
             case 'CHALLENGER':
                 return <img alt="Emblem_Challenger" src={Emblem_Challenger} />;
+            default:
+                return <span>no tier</span>
         }
     };
     const getPositionEmblem = position => {
@@ -56,6 +58,8 @@ const Recruit = props => {
                 return <img alt="BotIcon" src={BotIcon} />;
             case 'SUPPORT':
                 return <img alt="SupportIcon" src={SupportIcon} />;
+            default:
+                return <span>no position</span>
         }
     };
     const getChampionImage = champion => {
@@ -153,6 +157,8 @@ const getEmblem = tier => {
             return <img alt="Emblem_Grandmaster" src={Emblem_Grandmaster} />;
         case 'CHALLENGER':
             return <img alt="Emblem_Challenger" src={Emblem_Challenger} />;
+        default:
+                return <span>no tier</span>
     }
 };
 

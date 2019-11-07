@@ -15,9 +15,8 @@ import { createStore, compose, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 
-import { connect } from 'react-redux';
-// import { login } from './reducers/user';
-import { create } from 'domain';
+// import { connect } from 'react-redux';
+// import { create } from 'domain';
 
 const App = ({ store }) => {
     console.log('mounted App')
@@ -40,13 +39,10 @@ App.propTypes = {
 
 export default withRedux((initialState, options) => {
     const middlewares = []; 
-    // const enhancer = compose(
-    //     applyMiddleware(...middlewares), 
-    //         !options.isServer && window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__ != 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f,
-    // );
-    const enhancer = window.__REDUX_DEVTOOLS_EXTENSTION_COMPOSE__ || compose;
-    const store = createStore(reducer, initialState, compose (
-        applyMiddleware(...middlewares)
-    ));
+    const enhancer = compose(
+        applyMiddleware(...middlewares), 
+            !options.isServer && window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f,
+    );
+    const store = createStore(reducer, initialState, enhancer);
     return store;
 })(App);

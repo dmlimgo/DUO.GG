@@ -88,6 +88,7 @@ const RecruitList = () => {
             />
         )
     });
+    // console.log('rP', recruitPostList);
     useEffect(() => {
         requestRecruit();
     }, []);

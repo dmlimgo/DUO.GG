@@ -35,9 +35,7 @@ const Main = () => {
             // console.log('user:', res.json().then(data => console.log(data.username)));
             const username = '';
             res.json().then(data => {
-                setUser(data, function() {
-                    // console.log('after setuser')
-                })
+                setUser(data)
             });
         } catch(err) {
             console.log('TopNav error Msg:', err);
@@ -95,6 +93,7 @@ const Main = () => {
     }
 
     const modalDetail = useSelector( state => state.modal );
+    console.log('MainJs', modalDetail);
     return (
         // <div className="home">
         //     <div className="content">
@@ -105,7 +104,7 @@ const Main = () => {
         <div className="home">
             <RecruitRegister/>
             <RecruitList/>
-            <RecruitDetail data={modalDetail} user={user}/>
+            {modalDetail.isShow === true ? <RecruitDetail data={modalDetail} user={user}/> : <React.Fragment/>}
         </div>
     );
 };

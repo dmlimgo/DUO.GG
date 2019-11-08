@@ -8,6 +8,7 @@ import BotIcon from '../../assets/icons/ranked-positions/Position_Challenger-Bot
 import SupportIcon from '../../assets/icons/ranked-positions/Position_Challenger-Support.png';
 
 const RecruitRegister = () => {
+    console.log('RecruitRegister Mounted')
     const [user, setUser] = useState({});
     const [registerResult, setState] = useState({});
     const getUsername = async() => {

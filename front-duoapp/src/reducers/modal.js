@@ -16,11 +16,12 @@ export const showDetailAction = (data) => {
 const reducer = (state=initialState, action) => {
     switch (action.type) {
         case SHOW_DETAIL: {
-            // console.log('showDetailAction', state, action)
+            console.log('showDetailAction', state, action)
             return {
                 ...state,
                 clickedRecruit: action.data,
-                isShow: true,
+                // isShow: true,
+                isShow: !state.isShow,
             }
         }
         default: {

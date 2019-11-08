@@ -82,8 +82,9 @@ const Recruit = props => {
     // console.log('each', each);
     const dispatch = useDispatch();
     const modalShow = () => {
-        document.querySelector('.detail__wrap').classList.remove("modal--hide");
-        document.querySelector('.detail__wrap').classList.add("modal--show");
+        console.log('신청하기 클릭됌')
+        // document.querySelector('.detail__wrap').classList.remove("modal--hide");
+        // document.querySelector('.detail__wrap').classList.add("modal--show");
         dispatch(showDetailAction(each));
     };
 

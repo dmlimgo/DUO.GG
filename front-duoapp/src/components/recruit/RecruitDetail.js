@@ -1,93 +1,99 @@
 import React, { useState, useEffect } from 'react';
 import './RecruitDetail.scss';
-// import Emblem_Iron from '../../assets/icons/ranked-emblems/Emblem_Iron.png';
-// import Emblem_Bronze from '../../assets/icons/ranked-emblems/Emblem_Bronze.png';
-// import Emblem_Silver from '../../assets/icons/ranked-emblems/Emblem_Silver.png';
-// import Emblem_Gold from '../../assets/icons/ranked-emblems/Emblem_Gold.png';
-// import Emblem_Platinum from '../../assets/icons/ranked-emblems/Emblem_Platinum.png';
-// import Emblem_Diamond from '../../assets/icons/ranked-emblems/Emblem_Diamond.png';
-// import Emblem_Master from '../../assets/icons/ranked-emblems/Emblem_Master.png';
-// import Emblem_Grandmaster from '../../assets/icons/ranked-emblems/Emblem_Grandmaster.png';
-// import Emblem_Challenger from '../../assets/icons/ranked-emblems/Emblem_Challenger.png';
 import { getEmblem } from './Recruit';
+import { useDispatch } from 'react-redux';
+import { showDetailAction } from '../../reducers/modal';
 
+console.log('[initial] RD Mounted')
 const RecruitDetail = props => {
+    console.log('RecruitDetail Mounted');
     console.log('modalDetail props:', props);
     const data = props.data.clickedRecruit;
     // console.log('modaldata', data);
+    const dispatch = useDispatch();
     const modalHide = () => {
-        document.querySelector('.detail__wrap').classList.remove('modal--show');
-        document.querySelector('.detail__wrap').classList.add('modal--hide');
+        // document.querySelector('.detail__wrap').classList.remove('modal--show');
+        // document.querySelector('.detail__wrap').classList.add('modal--hide');
+        dispatch(showDetailAction());
     };
     const [applicantList, setApplicantList] = useState([]);
     const [applicants, setApplicants] = useState([]);
     const getApplicants = async() => {
         // recruit_id필요
-        const requestBody = {
-            query: `
-                query {
-                    recruitmentAndApplicants(recruitId:"5dba82c9ffd1e12700a78837") {
-                        _id,
-                        position,
-                        status,
-                        created_at,
-                        updated_at,
-                        writer {
-                            username,
-                            tiers {
-                                tier,
-                                rank,
-                                leaguePoint
-                            }
-                        },
-                        applicants {
-                            representationNickname,
-                            tiers {
-                                tier,
-                                rank,
-                                leaguePoint
-                            }
-                            recentgames {
-                                win,
-                                kills,
-                                deaths,
-                                assists,
-                                champion
+        console.log('RD getApplicants excuted')
+        console.log('modalshow', props.data.isShow)
+        if (props.data.isShow) {
+            const requestBody = {
+                query: `
+                    query {
+                        recruitmentAndApplicants(recruitId:"${data._id}") {
+                            _id,
+                            position,
+                            status,
+                            created_at,
+                            updated_at,
+                            writer {
+                                username,
+                                tiers {
+                                    tier,
+                                    rank,
+                                    leaguePoint
+                                }
+                            },
+                            applicants {
+                                representationNickname,
+                                tiers {
+                                    tier,
+                                    rank,
+                                    leaguePoint
+                                }
+                                recentgames {
+                                    win,
+                                    kills,
+                                    deaths,
+                                    assists,
+                                    champion
+                                }
                             }
                         }
                     }
-                }
-            `
-        }
-        const res = await fetch('http://localhost:4000/graphql', {
-            method: 'POST',
-            body: JSON.stringify(requestBody),
-            headers: {
-                'Content-Type': 'application/json'
+                `
             }
-        });
-        await res.json().then(data => {
-            const applicantList = data.data.recruitmentAndApplicants.applicants.map((data, index) => {
-                return (
-                    <div className="comment__box" key={index}>
-                        <div className="username">
-                            {data.representationNickname}
-                        </div>
-                        <div className="tier">
-                            {data.tiers.tier} {data.tiers.rank}
-                        </div>
-                        <div className="position">
-                            {data.position}
-                        </div>
-                        <div className="recent">
-                            전적
-                        </div>
-                    </div>
-                )
+            console.log('111')
+            const res = await fetch('http://localhost:4000/graphql', {
+                method: 'POST',
+                body: JSON.stringify(requestBody),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
-            setApplicants(applicantList);
-            console.log('applicants', applicantList);
-        });
+            console.log('res', res)
+            console.log('222')
+            await res.json().then(data => {
+                console.log('resdata', data)
+                const applicantList = data.data.recruitmentAndApplicants.applicants.map((data, index) => {
+                    return (
+                        <div className="comment__box" key={index}>
+                            <div className="username">
+                                {data.representationNickname}
+                            </div>
+                            <div className="tier">
+                                {data.tiers.tier} {data.tiers.rank}
+                            </div>
+                            <div className="position">
+                                {data.position}
+                            </div>
+                            <div className="recent">
+                                전적
+                            </div>
+                        </div>
+                    )
+                });
+                console.log('before setApplicants', applicantList)
+                setApplicants(applicantList);
+                console.log('after setApplicants', applicantList);
+            });
+        }
     };
     const applyMatch = async userId => {
         console.log('applyMatch userId', userId)
@@ -116,12 +122,24 @@ const RecruitDetail = props => {
             console.log('applyMatch done', data)
         })
     }
+    // getApplicants();
     useEffect(() => {
-        getApplicants()
-        
-    },[applicants]);
+        console.log('RecruitDetail useEffect')
+        getApplicants() 
+    },[]);
+
+    // const [test, setTest] = useState(0);
+    // const getTest = () => {
+    //     console.log('getTest', test);
+    //     setTest(test+1);
+    // }
+    // useEffect(() => {
+    //     console.log('useeffect')
+    //     getTest();
+    // },[test])
     return (
-        <div className="detail__wrap modal--hide">
+        // <div className="detail__wrap modal--hide">
+        <div className="detail__wrap">
             <div onClick={modalHide} className="modal__bg" />
             <div className="modal__box">
                 <div className="row1">
@@ -148,6 +166,7 @@ const RecruitDetail = props => {
             </div>
             <div className="modal__box">
                 <div className="comments">
+                    {/* {test} */}
                     {applicants}
                 </div>
             </div>

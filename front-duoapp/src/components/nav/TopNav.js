@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import './TopNav.scss';
 
 const TopNav = () => {
+    console.log('TopNav Mounted')
     const [user, setUser] = useState({});
     useEffect(() => {
         // profile에서 유저 정보 가져오기

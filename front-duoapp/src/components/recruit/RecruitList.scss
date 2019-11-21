@@ -4,7 +4,14 @@
     width: 100%;
     margin-bottom: 80px;
 }
-
 .recruit__filter {
     margin: auto;
+    button {
+        margin: auto 5px;
+        width: 80px;
+        padding: 3px 0;
+        &:last-of-type {
+            margin: auto 15px;
+        }
+    }
 }

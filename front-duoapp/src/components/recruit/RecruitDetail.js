@@ -158,6 +158,16 @@ const RecruitDetail = props => {
                         </div>
                     </div>
                 </div>
+                <div className="row2">
+                    <div className="record">
+                        <div className="champion">
+                            champ_img
+                        </div>
+                        <div className="score">
+                            score_data
+                        </div>
+                    </div>
+                </div>
                 <div className="row3">
                     <button onClick={() => applyMatch(props.user._id)} className="button">
                         신청하기
